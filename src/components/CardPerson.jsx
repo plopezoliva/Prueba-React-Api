@@ -3,13 +3,17 @@ import { CardGroup } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 
 const CardPerson = ({ search }) => {
-  //La variable fetchedData almacenará los datos que obtuvimos de la API.
-  //Usaremos la función setFetchedData para cambiar los datos cuando queramos.
+  //La variable dataApi almacenará los datos que obtuvimos de la API.
+  //Usaremos la función setdataApi para cambiar los datos cuando queramos.
   //mostrar las card
   const [dataApi, setdataApi] = useState([]);
 
   //función para traer los datos de la API
   const URL = `https://rickandmortyapi.com/api/character/?page=2&name=${search}`;
+
+  useEffect(() => {
+    buscarData();
+  }, []);
 
   const buscarData = async () => {
     const response = await fetch(URL);
@@ -18,12 +22,7 @@ const CardPerson = ({ search }) => {
     setdataApi(data.results);
   };
 
-  useEffect(() => {
-    buscarData();
-  }, []);
-
-  
-  const results = !search
+    const results = !search
    ? dataApi
    : dataApi.filter((personajes) =>
         personajes.name.toLowerCase().includes(search.toLowerCase())
